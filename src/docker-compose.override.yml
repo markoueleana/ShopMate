@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=CartDb
    restart: always
    ports:
-      - "5431:5431"
+      - "5431:5432"
    volumes:
       - postgres_cart:/var/lib/postgressql/data
 
@@ -43,7 +43,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=cartdb;Port=5431;Database=CartDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Database=Server=cartdb;Port=5432;Database=CartDb;User Id=postgres;Password=postgres;Include Error Detail=true
     depends_on:
       - cartdb
     ports:
