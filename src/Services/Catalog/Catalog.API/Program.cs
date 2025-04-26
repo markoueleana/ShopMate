@@ -1,4 +1,5 @@
 using Carter;
+using Catalog.API.Data;
 using Marten;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,11 @@ builder.Services.AddMediatR(config =>
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
+
 }).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment()) builder.Services.InitializeMartenWith<CatalogInitialData>();
+
 var app = builder.Build();
 app.MapCarter();
 app.Run();
