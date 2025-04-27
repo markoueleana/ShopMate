@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,4 +13,14 @@ public static class DependencyInjection
         services.AddDbContext<OrderDbContext>(opt => opt.UseSqlServer(connectionString));
         return services;
     }
+    public static async Task InitializeDb(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+
+        context.Database.MigrateAsync().GetAwaiter().GetResult();
+
+    }
+
 }
