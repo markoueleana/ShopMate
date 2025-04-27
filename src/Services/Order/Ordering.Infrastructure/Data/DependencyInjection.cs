@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Application.Data;
 
 namespace Ordering.Infrastructure.Data;
 
@@ -11,6 +12,7 @@ public static class DependencyInjection
     {
         var connectionString = configuration.GetConnectionString("Database")!;
         services.AddDbContext<OrderDbContext>(opt => opt.UseSqlServer(connectionString));
+        services.AddScoped<IOrderDbContext, OrderDbContext>();
         return services;
     }
     public static async Task InitializeDb(this WebApplication app)
@@ -22,5 +24,6 @@ public static class DependencyInjection
         context.Database.MigrateAsync().GetAwaiter().GetResult();
 
     }
+
 
 }
