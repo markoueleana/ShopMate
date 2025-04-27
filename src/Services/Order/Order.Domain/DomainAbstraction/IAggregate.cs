@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Order.Domain.DomainAbstraction;
+namespace Ordering.Domain.DomainAbstraction;
 
 public interface IAggreegate<T> : IAggregate, IEntity<T>
 { 

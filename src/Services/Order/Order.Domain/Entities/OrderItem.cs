@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Order.Domain.DomainAbstraction;
+using Ordering.Domain.DomainAbstraction;
 
-namespace Order.Domain.Entities;
+namespace Ordering.Domain.Entities;
 
 public class OrderItem : Entity<Guid>
 {

@@ -1,4 +1,4 @@
-﻿namespace Order.Domain.DomainAbstraction;
+﻿namespace Ordering.Domain.DomainAbstraction;
 
 public interface IEntity<T> : IEntity
 {
