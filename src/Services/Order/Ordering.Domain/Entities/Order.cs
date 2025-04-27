@@ -6,8 +6,8 @@ namespace Ordering.Domain.Entities;
 
 public class Order : Aggregate<Guid>
 {
-    private readonly List<OrderItem> orderItems = new();
-    public IReadOnlyList<OrderItem> Items=>orderItems.AsReadOnly();
+    private readonly List<OrderItem> items = new();
+    public IReadOnlyList<OrderItem> OrderItems => items.AsReadOnly();
     public Guid CustomerId { get; private set; } = default!;
     public string OrderName { get; private set; } = default!;
     public Address ShippingAddress  { get; private set; } = default!;
@@ -26,6 +26,7 @@ public class Order : Aggregate<Guid>
             OrderName = orderName,
             ShippingAddress = shippingAddress,
             PaymentAddress = paymentAddress,
+            Payment = payment,
             Status = OrderStatus.Pending,
         };
 
@@ -41,15 +42,15 @@ public class Order : Aggregate<Guid>
     {
 
         var orderItem = new OrderItem(Id, productId, quantity, price);
-        orderItems.Add(orderItem);
+        items.Add(orderItem);
     }
 
     public void Remove(Guid productId)
     {
-        var orderItem = orderItems.FirstOrDefault(x => x.ProductId == productId);
+        var orderItem = items.FirstOrDefault(x => x.ProductId == productId);
         if (orderItem is not null)
         {
-            orderItems.Remove(orderItem);
+            items.Remove(orderItem);
         }
     }
 
