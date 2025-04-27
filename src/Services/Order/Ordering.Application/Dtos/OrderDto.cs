@@ -9,9 +9,9 @@ public record OrderDto
     Guid Id,
     Guid CustomerId,
     string OrderName,
-    Address ShippingAddress,
-    Address PaymentAddress,
-    Payment Payment,
+    AddressDto ShippingAddress,
+    AddressDto PaymentAddress,
+    PaymentDto Payment,
     OrderStatus Status,
-    List<OrderItem> OrderItems
+    List<OrderItemDto> OrderItems
 );
