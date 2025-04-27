@@ -11,6 +11,7 @@ services:
    volumes:
       - postgres_catalog:/var/lib/postgressql/data
 
+
   cartdb:
    container_name: cartdb
    environment:
@@ -22,6 +23,16 @@ services:
       - "5431:5432"
    volumes:
       - postgres_cart:/var/lib/postgressql/data
+
+  orderdb:
+    container_name: orderdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=EaM12345678
+    restart: always
+    ports:
+      - "1433:1433"
+
 
   catalog.api:
     environment:
@@ -38,6 +49,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
+
   cart.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -49,6 +61,21 @@ services:
     ports:
       - "6001:8080"
       - "6061:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+ 
+  ordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=EaM12345678;Encrypt=False;TrustServerCertificate=True
+    depends_on:
+      - orderdb
+    ports:
+      - "6003:8080"
+      - "6063:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

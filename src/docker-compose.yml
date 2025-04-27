@@ -1,19 +1,33 @@
 services:
   catalogdb:
    image: postgres
+
   cartdb:
    image: postgres
-  
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
+
+
   cart.api:
     image: ${DOCKER_REGISTRY-}cartapi
     build:
       context: .
       dockerfile: Services/Cart/Cart.Api/Dockerfile
+
+
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Order/Ordering.API/Dockerfile
 volumes:
   postgres_catalog:
   postgres_cart:

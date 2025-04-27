@@ -11,6 +11,9 @@ builder.Services
     .AddApiServices() ;
 var app = builder.Build();
 
-
+if (app.Environment.IsDevelopment())
+{
+    await app.InitializeDb();
+}
 
 app.Run();
