@@ -1,9 +1,12 @@
 ﻿
+using System.Threading;
 using BuildingBlocks.CQRS;
+using Microsoft.EntityFrameworkCore;
 using Ordering.Application.Data;
 using Ordering.Application.Dtos;
 using Ordering.Domain.Entities;
 using Ordering.Domain.ValueObjects;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Ordering.Application.Orders.Commands;
 
@@ -13,6 +16,7 @@ public class CreateOrderHandler (IOrderDbContext dbContext): ICommandHandler<Cre
 {
     public async Task<CreateOrderResult> Handle(CreateOrderCommand commad, CancellationToken cancellationToken)
     {
+    
         var order = CreateOrder(commad.Order);
         dbContext.Orders.Add(order);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -21,6 +25,8 @@ public class CreateOrderHandler (IOrderDbContext dbContext): ICommandHandler<Cre
 
     private Order CreateOrder(OrderDto orderDto)
     {
+       
+
 
         var shippingAddress = Address.CreateAddress(orderDto.ShippingAddress.Country, orderDto.ShippingAddress.ZipCode, orderDto.ShippingAddress.City);
         var paymentAddress = Address.CreateAddress(orderDto.PaymentAddress.Country, orderDto.PaymentAddress.ZipCode, orderDto.PaymentAddress.City);
