@@ -1,10 +1,10 @@
 ﻿
 namespace BuildingBlocksMessaging.Events;
 
-public record CheckoutCartEvent 
+public record CheckoutCartEvent
 {
-    public Guid CustomerId { get; private set; } = default!;
-    public string OrderName { get; private set; } = default!;
+    public string UserName { get;  set; } = default!;
+    public Guid CustomerId { get;  set; } = default!;
     public string Country { get; set; } = default!;
     public string ZipCode { get; set; } = default!;
     public string City { get; set; } = default!;
@@ -13,4 +13,5 @@ public record CheckoutCartEvent
     public string CVV { get; set; } = default!;
     public string PaymentMethod { get; set; } = default!;
     public string Expiration { get; set; } = default!;
+    public decimal TotalPrice { get; set; } = default!;
 }
