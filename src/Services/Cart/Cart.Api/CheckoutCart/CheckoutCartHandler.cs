@@ -1,0 +1,24 @@
+﻿using System.Windows.Input;
+using BuildingBlocks.CQRS;
+using Cart.API.Dtos;
+using Cart.API.Entities;
+using Marten;
+using BuildingBlocksMessaging.Events;
+using Mapster;
+namespace Cart.API.CheckoutCart;
+
+public record CheckoutCartCommand(CartCheckoutDto CheckoutCartDto) : ICommand<CheckoutCartResult>;
+
+public record CheckoutCartResult(bool isSuccess) ;
+
+public class CheckoutCartHandler (IDocumentSession session) : ICommandHandler<CheckoutCartCommand, CheckoutCartResult>
+{
+    public async Task<CheckoutCartResult> Handle(CheckoutCartCommand command, CancellationToken cancellationToken)
+    {
+        var cart = await session.LoadAsync<ShoppingCart>(command.CheckoutCartDto.UserName, cancellationToken);
+
+        var eventMessage = command.CheckoutCartDto.Adapt<CheckoutCartEvent>();
+
+        return new CheckoutCartResult(true);
+    }
+}
