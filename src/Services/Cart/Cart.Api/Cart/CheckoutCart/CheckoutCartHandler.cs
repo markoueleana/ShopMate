@@ -6,13 +6,13 @@ using Marten;
 using BuildingBlocksMessaging.Events;
 using Mapster;
 using MassTransit;
-namespace Cart.API.CheckoutCart;
+namespace Cart.API.Cart.CheckoutCart;
 
 public record CheckoutCartCommand(CartCheckoutDto CartCheckoutDto) : ICommand<CheckoutCartResult>;
 
-public record CheckoutCartResult(bool IsSuccess) ;
+public record CheckoutCartResult(bool IsSuccess);
 
-public class CheckoutCartHandler (IDocumentSession session,IPublishEndpoint publishEndpoint) : ICommandHandler<CheckoutCartCommand, CheckoutCartResult>
+public class CheckoutCartHandler(IDocumentSession session, IPublishEndpoint publishEndpoint) : ICommandHandler<CheckoutCartCommand, CheckoutCartResult>
 {
     public async Task<CheckoutCartResult> Handle(CheckoutCartCommand command, CancellationToken cancellationToken)
     {

@@ -3,7 +3,7 @@ using Carter;
 using Mapster;
 using MediatR;
 
-namespace Cart.API.CheckoutCart;
+namespace Cart.API.Cart.CheckoutCart;
 
 public record CheckoutCartRequest(CartCheckoutDto CartCheckoutDto);
 
