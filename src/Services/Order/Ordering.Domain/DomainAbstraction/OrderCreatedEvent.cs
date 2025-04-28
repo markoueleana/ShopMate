@@ -4,14 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ordering.Domain.Abstractions;
+using Ordering.Domain.Entities;
 
 namespace Ordering.Domain.DomainAbstraction;
-
-public interface IAggreegate<T> : IAggregate, IEntity<T>
-{ 
-
-}
-public interface IAggregate : IEntity
-{
-    IReadOnlyList<IDomainEvent> DomainEvents { get; }
-}
+public record OrderCreatedEvent(Order order) : IDomainEvent;

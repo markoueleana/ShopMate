@@ -19,7 +19,7 @@ public class Order : Aggregate<Guid>
 
     public static Order Create(Guid orderId, Guid customerId, string orderName, Address shippingAddress, Address paymentAddress,Payment payment)
     {
-        return new Order
+        var order = new Order
         {
             Id = orderId,
             CustomerId = customerId,
@@ -28,7 +28,9 @@ public class Order : Aggregate<Guid>
             PaymentAddress = paymentAddress,
             Payment = payment,
             Status = OrderStatus.Pending,
-        };
+        }; 
+        order.AddDomainEvent(new OrderCreatedEvent(order));
+        return order;
 
     }
     public void Update(string orderName, Address shippingAddress, Address paymentAddress, Payment payment, OrderStatus orderStatus)

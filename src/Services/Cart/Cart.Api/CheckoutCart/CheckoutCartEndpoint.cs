@@ -5,9 +5,9 @@ using MediatR;
 
 namespace Cart.API.CheckoutCart;
 
-public record CheckoutCartRequest(CartCheckoutDto cartCheckoutDto);
+public record CheckoutCartRequest(CartCheckoutDto CartCheckoutDto);
 
-public record CheckoutCartReponse(bool isSuccess);
+public record CheckoutCartReponse(bool IsSuccess);
 public class CheckoutCartEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)

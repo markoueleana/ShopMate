@@ -16,7 +16,6 @@ public class CreateOrderHandler (IOrderDbContext dbContext): ICommandHandler<Cre
 {
     public async Task<CreateOrderResult> Handle(CreateOrderCommand commad, CancellationToken cancellationToken)
     {
-    
         var order = CreateOrder(commad.Order);
         dbContext.Orders.Add(order);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -25,9 +24,6 @@ public class CreateOrderHandler (IOrderDbContext dbContext): ICommandHandler<Cre
 
     private Order CreateOrder(OrderDto orderDto)
     {
-       
-
-
         var shippingAddress = Address.CreateAddress(orderDto.ShippingAddress.Country, orderDto.ShippingAddress.ZipCode, orderDto.ShippingAddress.City);
         var paymentAddress = Address.CreateAddress(orderDto.PaymentAddress.Country, orderDto.PaymentAddress.ZipCode, orderDto.PaymentAddress.City);
         var payment = Payment.CreatePayment(orderDto.Payment.CardNumber, orderDto.Payment.CardNumber, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod,orderDto.Payment.Expiration);
