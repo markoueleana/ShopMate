@@ -23,10 +23,17 @@ public static class DependencyInjection
         var context = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
 
         context.Database.MigrateAsync().GetAwaiter().GetResult();
-        await context.Customers.AddRangeAsync(InitialData.Customers);
-        await context.SaveChangesAsync();
-        await context.Products.AddRangeAsync(InitialData.Products);
-        await context.SaveChangesAsync();
+        if (!await context.Customers.AnyAsync())
+        {
+            await context.Customers.AddRangeAsync(InitialData.Customers);
+            await context.SaveChangesAsync();
+        }
+        if (!await context.Products.AnyAsync())
+        {
+            await context.Products.AddRangeAsync(InitialData.Products);
+            await context.SaveChangesAsync();
+        }
+        
     }
 
 

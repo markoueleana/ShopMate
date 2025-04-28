@@ -29,6 +29,9 @@ public class CreateOrderHandler (IOrderDbContext dbContext): ICommandHandler<Cre
         var payment = Payment.CreatePayment(orderDto.Payment.CardNumber, orderDto.Payment.CardNumber, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod,orderDto.Payment.Expiration);
 
         var newOrder = Order.Create(Guid.NewGuid(), orderDto.CustomerId, orderDto.OrderName, shippingAddress, paymentAddress, payment);
+
+        newOrder.CreatedAt = DateTime.Now;
+
         foreach (var orderItemDto in orderDto.OrderItems)
         {
             newOrder.Add(orderItemDto.ProductId, orderItemDto.Quantity, orderItemDto.Price);

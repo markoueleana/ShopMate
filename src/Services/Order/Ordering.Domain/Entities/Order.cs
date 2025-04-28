@@ -6,8 +6,8 @@ namespace Ordering.Domain.Entities;
 
 public class Order : Aggregate<Guid>
 {
-    private readonly List<OrderItem> items = new();
-    public IReadOnlyList<OrderItem> OrderItems => items.AsReadOnly();
+    private readonly List<OrderItem> _orderItems = new();
+    public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
     public Guid CustomerId { get; private set; } = default!;
     public string OrderName { get; private set; } = default!;
     public Address ShippingAddress  { get; private set; } = default!;
@@ -44,15 +44,15 @@ public class Order : Aggregate<Guid>
     {
 
         var orderItem = new OrderItem(Id, productId, quantity, price);
-        items.Add(orderItem);
+        _orderItems.Add(orderItem);
     }
 
     public void Remove(Guid productId)
     {
-        var orderItem = items.FirstOrDefault(x => x.ProductId == productId);
+        var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
         if (orderItem is not null)
         {
-            items.Remove(orderItem);
+            _orderItems.Remove(orderItem);
         }
     }
 
