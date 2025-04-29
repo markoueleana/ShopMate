@@ -4,6 +4,8 @@ A  microservices based e-shop application built with ASP.NET Core, Docker, and e
 ---
 
 ## 📦 Architecture Overview
+![Screenshot 2025-04-29 183216](https://github.com/user-attachments/assets/ef76f84c-afae-4b41-ac18-8dc1a030c3b4)
+
 
 This ShopMate consists of the following microservices:
 
