@@ -5,8 +5,9 @@ using Hangfire.Annotations;
 using Hangfire.Dashboard;
 using Ordering.API;
 using Ordering.Application;
-using Ordering.Application.Orders;
+using Ordering.Application.Orders.CustomerOrderEmail;
 using Ordering.Infrastructure.Data;
+using Ordering.Infrastructure.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,10 @@ builder.Services.AddHangfire(x =>
     .UseRecommendedSerializerSettings()
     .UseInMemoryStorage()
 );
-
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddHangfireServer();
+
 builder.Services.AddScoped<CustomerOrdersEmailJob>();
 var app = builder.Build();
 

@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocksMessaging", "BuildingBlocks\BuildingBlocksMessaging\BuildingBlocksMessaging.csproj", "{41273C66-8F60-4AB8-BE24-9E5AF9B29026}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocksEmail", "BuildingBlocks\BuildingBlocksEmail\BuildingBlocksEmail.csproj", "{DB4DAC34-3135-44E2-A7CC-CE0789D259F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{41273C66-8F60-4AB8-BE24-9E5AF9B29026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41273C66-8F60-4AB8-BE24-9E5AF9B29026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41273C66-8F60-4AB8-BE24-9E5AF9B29026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB4DAC34-3135-44E2-A7CC-CE0789D259F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB4DAC34-3135-44E2-A7CC-CE0789D259F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB4DAC34-3135-44E2-A7CC-CE0789D259F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB4DAC34-3135-44E2-A7CC-CE0789D259F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +96,6 @@ Global
 		{00D0E735-A99B-4E11-B34F-EC023207B14C} = {9D054E49-C5F1-46FF-8E39-6F81BC94FB77}
 		{D4F1241C-E566-4CEA-935F-747F10B3036E} = {9D054E49-C5F1-46FF-8E39-6F81BC94FB77}
 		{41273C66-8F60-4AB8-BE24-9E5AF9B29026} = {70E715D7-9468-47EB-9DC8-93C5D8AE8D56}
+		{DB4DAC34-3135-44E2-A7CC-CE0789D259F7} = {70E715D7-9468-47EB-9DC8-93C5D8AE8D56}
 	EndGlobalSection
 EndGlobal

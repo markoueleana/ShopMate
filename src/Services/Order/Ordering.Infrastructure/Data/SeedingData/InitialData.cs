@@ -7,8 +7,8 @@ internal class InitialData
     public static IEnumerable<Customer> Customers =>
     new List<Customer>
     {
-        Customer.CreateCustomer(new Guid("58c49479-ec65-4de2-86e7-033c546291aa"), "Eleana","Markou", "eleana@gmail.com"),
-        Customer.CreateCustomer(new Guid("189dc8dc-990f-48e0-a37b-e6f2b60b9d7d"), "John","douglas", "john@gmail.com")
+        Customer.CreateCustomer(new Guid("58c49479-ec65-4de2-86e7-033c546291aa"), "Eleana","Markou", "markoueleana@gmail.com"),
+        Customer.CreateCustomer(new Guid("189dc8dc-990f-48e0-a37b-e6f2b60b9d7d"), "John","Douglas", "markoueleana@gmail.com")
     };
     public static IEnumerable<Product> Products =>
         new List<Product>

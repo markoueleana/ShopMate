@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ordering.Application.Data;
 
-namespace Ordering.Application.Orders;
+namespace Ordering.Application.Orders.CustomerOrderEmail;
 
-public class CustomerOrdersEmailJob 
+public class CustomerOrdersEmailJob
 {
     private IOrderDbContext orderDbContext;
-    public CustomerOrdersEmailJob(IOrderDbContext context)
+    private IEmailService emailService;
+    public CustomerOrdersEmailJob(IOrderDbContext context, IEmailService emailService)
     {
         orderDbContext = context;
+        this.emailService = emailService;
     }
-    public async Task RunJob() 
+    public async Task RunJob()
     {
         var customers = await orderDbContext.Customers
                      .ToListAsync();
@@ -27,8 +29,11 @@ public class CustomerOrdersEmailJob
                 .OrderBy(o => o.OrderName)
                 .ToListAsync();
 
-            //Simulating email
-            Console.WriteLine($"Dear Customer {customer.FirstName}, Your have ordered {orders.Count} in the previous month!");
+            await emailService.SendEmailAsync(
+            customer.Email, 
+            "Your Monthly Orders",
+            $"Dear {customer.FirstName}, you placed {orders.Count} order(s) in the last month!"
+            );
 
         }
     }
