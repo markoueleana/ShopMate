@@ -6,8 +6,8 @@ namespace Ordering.Domain.Entities;
 
 public class Order : Aggregate<Guid>
 {
-    private readonly List<OrderItem> items = new();
-    public IReadOnlyList<OrderItem> OrderItems => items.AsReadOnly();
+    private readonly List<OrderItem> _orderItems = new();
+    public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
     public Guid CustomerId { get; private set; } = default!;
     public string OrderName { get; private set; } = default!;
     public Address ShippingAddress  { get; private set; } = default!;
@@ -15,11 +15,15 @@ public class Order : Aggregate<Guid>
     public Payment Payment { get; private set; } = default!;
     public OrderStatus Status { get; private set; } = OrderStatus.Pending;
 
-    public decimal TotalAmount { get; private set; } = default!;
+    public decimal TotalAmount
+    {
+        get => OrderItems.Sum(x => x.Price * x.Quantity);
+        private set { }
+    }
 
     public static Order Create(Guid orderId, Guid customerId, string orderName, Address shippingAddress, Address paymentAddress,Payment payment)
     {
-        return new Order
+        var order = new Order
         {
             Id = orderId,
             CustomerId = customerId,
@@ -28,7 +32,9 @@ public class Order : Aggregate<Guid>
             PaymentAddress = paymentAddress,
             Payment = payment,
             Status = OrderStatus.Pending,
-        };
+        }; 
+        order.AddDomainEvent(new OrderCreatedEvent(order));
+        return order;
 
     }
     public void Update(string orderName, Address shippingAddress, Address paymentAddress, Payment payment, OrderStatus orderStatus)
@@ -42,15 +48,15 @@ public class Order : Aggregate<Guid>
     {
 
         var orderItem = new OrderItem(Id, productId, quantity, price);
-        items.Add(orderItem);
+        _orderItems.Add(orderItem);
     }
 
     public void Remove(Guid productId)
     {
-        var orderItem = items.FirstOrDefault(x => x.ProductId == productId);
+        var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
         if (orderItem is not null)
         {
-            items.Remove(orderItem);
+            _orderItems.Remove(orderItem);
         }
     }
 

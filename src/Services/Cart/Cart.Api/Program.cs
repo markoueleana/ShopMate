@@ -1,7 +1,7 @@
 using Cart.API.Entities;
 using Carter;
 using Marten;
-
+using BuildingBlocksMessaging.Broker;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -16,7 +16,7 @@ builder.Services.AddMarten(opts =>
     opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
 
-
+builder.Services.AddMessageBroker(builder.Configuration, typeof(Program).Assembly);
 
 var app = builder.Build();
 app.MapCarter();

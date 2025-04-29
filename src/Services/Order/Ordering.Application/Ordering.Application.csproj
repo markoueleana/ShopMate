@@ -7,12 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocksEmail\BuildingBlocksEmail.csproj" />
+		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocksMessaging\BuildingBlocksMessaging.csproj" />
 		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
 		<ProjectReference Include="..\Ordering.Domain\Ordering.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+		<PackageReference Include="NETCore.MailKit" Version="2.1.0" />
 	</ItemGroup>
 
 </Project>

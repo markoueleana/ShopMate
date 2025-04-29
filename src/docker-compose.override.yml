@@ -11,6 +11,16 @@ services:
    volumes:
       - postgres_catalog:/var/lib/postgressql/data
 
+  messagebroker:
+    container_name: messagebroker
+    hostname: shopmate
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   cartdb:
    container_name: cartdb
@@ -56,8 +66,12 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=cartdb;Port=5432;Database=CartDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - MessageBroker__Host=amqp://shopmate:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
       - cartdb
+      - messagebroker
     ports:
       - "6001:8080"
       - "6061:8081"
@@ -71,8 +85,12 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=EaM12345678;Encrypt=False;TrustServerCertificate=True
+      - MessageBroker__Host=amqp://shopmate:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
       - orderdb
+      - messagebroker
     ports:
       - "6003:8080"
       - "6063:8081"
