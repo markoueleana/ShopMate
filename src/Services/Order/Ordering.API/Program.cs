@@ -3,8 +3,8 @@ using Carter;
 using Hangfire;
 using Hangfire.Annotations;
 using Hangfire.Dashboard;
-using Ordering.API;
 using Ordering.Application;
+using Ordering.Application.Orders;
 using Ordering.Application.Orders.CustomerOrderEmail;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Email;
@@ -22,7 +22,7 @@ builder.Services.AddHangfire(x =>
     .UseInMemoryStorage()
 );
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IEmailService,EmailService>();
 builder.Services.AddHangfireServer();
 
 builder.Services.AddScoped<CustomerOrdersEmailJob>();
