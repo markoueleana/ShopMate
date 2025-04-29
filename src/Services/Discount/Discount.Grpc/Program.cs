@@ -10,7 +10,7 @@ builder.Services.AddGrpc();
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
-    opts.Schema.For<Coupon>().Identity(c => c.Id);
+    opts.Schema.For<Coupon>().Identity(c => c.ProductName);
 }).UseLightweightSessions();
 
 

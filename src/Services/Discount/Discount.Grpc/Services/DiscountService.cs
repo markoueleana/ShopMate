@@ -20,17 +20,24 @@ public class DiscountService (IDocumentSession session) : DiscountProtoService.D
         session.Store(coupon);
 
         await session.SaveChangesAsync();
-        var couponModel = coupon.Adapt<CouponEntity>();
-        return couponModel;
+        var couponEntity = coupon.Adapt<CouponEntity>();
+        return couponEntity;
     }
     public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
     {
         return base.DeleteDiscount(request, context);
 
     }
-    public override Task<CouponEntity> GetDiscount(GetDiscountRequest request, ServerCallContext context)
+    public override async Task<CouponEntity> GetDiscount(GetDiscountRequest request, ServerCallContext context)
     {
-        return base.GetDiscount(request, context);
+        var coupon = await session.LoadAsync<Coupon>(request.ProductName);
+
+        if (coupon is null) coupon = new Coupon { ProductName = "No Discount", Amount = 0 };
+
+        var couponEntity = coupon.Adapt<CouponEntity>();
+
+        return couponEntity;
+
     }
 }
     

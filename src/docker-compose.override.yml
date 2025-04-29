@@ -95,9 +95,11 @@ services:
       - MessageBroker__Host=amqp://shopmate:5672
       - MessageBroker__UserName=guest
       - MessageBroker__Password=guest
+      - GrpcSettings__DiscountUrl=https://discount.grpc:8081
     depends_on:
       - cartdb
       - messagebroker
+      - discount.grpc
     ports:
       - "6001:8080"
       - "6061:8081"
