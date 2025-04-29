@@ -5,6 +5,9 @@ services:
   cartdb:
    image: postgres
 
+  discountdb:
+   image: postgres
+
   orderdb:
     image: mcr.microsoft.com/mssql/server
   
@@ -24,6 +27,11 @@ services:
       context: .
       dockerfile: Services/Cart/Cart.Api/Dockerfile
 
+  discount.grpc:
+    image: ${DOCKER_REGISTRY-}discountgrpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
